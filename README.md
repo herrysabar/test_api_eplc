@@ -20,7 +20,7 @@ REST API untuk manajemen task sederhana dengan autentikasi berbasis token.
 ```bash
 # 1. Clone repository
 git clone <repository-url>
-cd api_eplc
+cd test_api_eplc
 
 # 2. Install dependencies
 composer install
