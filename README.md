@@ -36,12 +36,12 @@ php artisan key:generate
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=api_eplc
+DB_DATABASE=test_api_eplc
 DB_USERNAME=root
 DB_PASSWORD=
 
 # 6. Buat database
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS api_eplc"
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS test_api_eplc"
 
 # 7. Jalankan migration
 php artisan migrate
