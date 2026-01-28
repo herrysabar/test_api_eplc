@@ -1,0 +1,51 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task_api_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    networks:
+      - task_api_network
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:alpine
+    container_name: task_api_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - task_api_network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: task_api_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: api_eplc
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PASSWORD: secret
+      MYSQL_USER: laravel
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - task_api_network
+    ports:
+      - "3307:3306"
+
+networks:
+  task_api_network:
+    driver: bridge
+
+volumes:
+  db_data:
